@@ -10,6 +10,7 @@ export default function devtoolPlugin (store) {
   // it will later be removed by devtools
   if (devtoolHook.supportsVuexBuffer) {
     store._devtoolBuffer = []
+    store._devtoolBase = devtoolHook.getSnapshot(store)
   }
 
   devtoolHook.emit('vuex:init', store)
@@ -23,7 +24,8 @@ export default function devtoolPlugin (store) {
 
     // if buffer exists push mutation for later use
     if (store._devtoolBuffer) {
-      store._devtoolBuffer.push(mutation)
+      let snapshot = devtoolHook.getSnapshot(store)
+      store._devtoolBuffer.push({ mutation, snapshot })
     }
   })
 }
