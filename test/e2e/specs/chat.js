@@ -24,5 +24,6 @@ module.exports = {
       .waitFor(50) // fake api
       .assert.count('.message-list-item', 3)
       .assert.containsText('.message-list-item:nth-child(3)', 'hi')
+      .end()
   }
 }
